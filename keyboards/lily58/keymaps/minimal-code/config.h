@@ -15,7 +15,7 @@
 
 #pragma once
 
-#define MASTER_LEFT
+#define MASTER_RIGHT
 #define SPLIT_LAYER_STATE_ENABLE // Share layer state with right half
 #define OLED_FADE_OUT
 #define OLED_FADE_OUT_INTERVAL 15 // Slowest fade out
