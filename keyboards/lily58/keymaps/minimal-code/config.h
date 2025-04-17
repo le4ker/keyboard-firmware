@@ -27,6 +27,8 @@
 // and reduce firmware space.
 #define NO_ACTION_TAPPING
 #define NO_ACTION_ONESHOT
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
 
 #define OLED_UPDATE_INTERVAL 300 // Lower interval to improve matrix scan rate
 #define LAYER_STATE_8BIT         // 8 bit layer state to reduce space

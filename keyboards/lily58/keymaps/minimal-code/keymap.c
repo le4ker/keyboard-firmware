@@ -76,23 +76,22 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (is_keyboard_master()) {
         return OLED_ROTATION_180;
     }
-
     return rotation;
 }
 
-#define L_BASE 0
-#define L_LOWER (1 << 1)
-
 bool oled_task_user(void) {
-    oled_write("   { minimal-code }\n\n\n     ", false);
+    static const char PROGMEM title[] = "   { minimal-code }\n\n\n     ";
+    static const char PROGMEM base[] = "Layer: Base";
+    static const char PROGMEM lower[] = "Layer: Lower";
+    
+    oled_write_P(title, false);
 
-    switch (layer_state) {
-        case L_BASE:
-            oled_write_ln("Layer: Base", false);
+    switch (get_highest_layer(layer_state)) {
+        case _BASE:
+            oled_write_ln_P(base, false);
             break;
-
-        case L_LOWER:
-            oled_write_ln("Layer: Lower", false);
+        case _LOWER:
+            oled_write_ln_P(lower, false);
             break;
     }
 
