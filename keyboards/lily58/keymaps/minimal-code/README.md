@@ -8,7 +8,7 @@ Features:
 - Only one extra toggled layer with arrows, media and brightness keys that
   follow VIM convention and F keys.
 - Matrix scan rate is improved from 1353 Hz that the default keymap achieves, to
-  1548 Hz.
+  1557 Hz.
 - [N-Key Rollover](https://en.wikipedia.org/wiki/Key_rollover#n-key_rollover).
 - The
   [debounce algorithm](https://docs.qmk.fm/#/feature_debounce_type?id=types-of-debounce-algorithms)
