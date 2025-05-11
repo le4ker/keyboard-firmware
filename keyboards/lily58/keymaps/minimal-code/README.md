@@ -3,7 +3,15 @@
 This layout aims to balance muscle memory from a typical QWERTY layout while
 having all the keys used for software development at the first layer only.
 
-Features:
+## Base Layer
+
+![Base Layer](../../../../.github/images/base.png)
+
+## Lower Layer
+
+![Lower Layer](../../../../.github/images/lower.png)
+
+## Features:
 
 - **Two-Layer Design:**
   - **Base Layer:** A QWERTY-like layout optimized for coding, providing easy
@@ -39,11 +47,3 @@ Features:
   - Layer state is synchronized between the two halves.
 - **Security:**
   - Keylogger functionality is explicitly disabled.
-
-## Base Layer
-
-![Base Layer](../../../../.github/images/base.png)
-
-## Lower Layer
-
-![Lower Layer](../../../../.github/images/lower.png)
