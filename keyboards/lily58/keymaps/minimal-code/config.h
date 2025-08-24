@@ -7,7 +7,7 @@
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR ANY PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
@@ -21,7 +21,7 @@
 #define OLED_FADE_OUT_INTERVAL 15 // Slowest fade out
 #define OLED_TIMEOUT 60000        // OLED timeout (ms)
 #define DEBOUNCE 5                // Debounce time (ms)
-#define NKRO_DEFAULT_ON true       // N-Key Rollover on by default
+#define NKRO_DEFAULT_ON true      // N-Key Rollover on by default
 
 // Disabled features to improve the matrix scan rate
 // and reduce firmware space.
@@ -30,8 +30,8 @@
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
-#define OLED_UPDATE_INTERVAL 300 // Lower interval to improve matrix scan rate
-#define LAYER_STATE_8BIT         // 8 bit layer state to reduce space
+#define OLED_UPDATE_INTERVAL 50
+#define LAYER_STATE_8BIT // 8 bit layer state to reduce space
 
 #define USB_POLLING_INTERVAL_MS 1 // Higher USB polling frequency
 

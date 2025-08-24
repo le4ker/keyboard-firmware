@@ -22,7 +22,7 @@ having all the keys used for software development at the first layer only.
     - Arrow keys arranged for intuitive navigation (VIM-like).
     - Brightness control keys.
 - **Performance Focused:**
-  - High matrix scan rate (improved from the default keymap's 1353 Hz to 1557
+  - High matrix scan rate (improved from the default keymap's 1353 Hz to 1572
     Hz).
   - Achieved by disabling unused QMK core features (Mouse Keys, Locking Support,
     Space Cadet, Grave Escape, Magic Commands, general Command Interface) and
@@ -31,6 +31,16 @@ having all the keys used for software development at the first layer only.
   - Link Time Optimization (LTO) enabled to reduce firmware size and improve
     speed.
   - Uses a minimal `printf` implementation.
+- **OLED Display Optimization:**
+  - **Smart Updates:** The OLED display only updates when the layer changes,
+    significantly improving firmware performance by avoiding unnecessary display
+    writes.
+  - **Performance Impact:** OLED writes are expensive operations that can impact
+    matrix scan rate. By only updating when needed, we maintain high performance
+    while keeping the display informative.
+  - Shows the keymap name ("{ minimal-code }") and the currently active layer.
+  - Display rotates 180 degrees on the master half for correct orientation.
+  - Features a fade-out effect and a 60-second timeout.
 - **Key Input & Reliability:**
   - **N-Key Rollover (NKRO):** Enabled by default, ensuring all simultaneous key
     presses are registered.
@@ -38,10 +48,6 @@ having all the keys used for software development at the first layer only.
     debounce time for responsive and accurate key presses.
   - **USB Polling:** Set to 1ms for high-frequency updates and reduced input
     latency.
-- **OLED Display:**
-  - Shows the keymap name ("{ minimal-code }") and the currently active layer.
-  - Display rotates 180 degrees on the master half for correct orientation.
-  - Features a fade-out effect and a 60-second timeout.
 - **Split Keyboard Enhancements:**
   - Right half configured as the master by default.
   - Layer state is synchronized between the two halves.
