@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+------|       |    |       |------+------+------+------+------+------|
      * |LShift|      |      |      |      |      |-------|    |-------|      | BriDn| BriUp|      |      |Delete|
      * `-----------------------------------------/       /     \      \-----------------------------------------'
-     *                   | LCtl | LAlt | LGUI | / Play  /       \ Mute \  |      |      |TG(LO)|
+     *                   | LCtl | LAlt | LGUI | / Play  /       \ Mute \  |      |      |TO(BA)|
      *                   |      |      |      |/       /         \      \ |      |      |      |
      *                   `----------------------------'           '------''--------------------'
      */
@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     KC_TAB, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,          KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, KC_NO, KC_NO,
                     KC_ESC, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,          KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_NO, KC_NO,
                 KC_LSFT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO, KC_NO, KC_BRMD, KC_BRMU, KC_NO, KC_NO, KC_DEL,
-                    KC_LCTL, KC_LALT, KC_LGUI, KC_MPLY,                 KC_MUTE, KC_NO, KC_NO, TG(_LOWER))};
+                    KC_LCTL, KC_LALT, KC_LGUI, KC_MPLY,                 KC_MUTE, KC_NO, KC_NO, TO(_BASE))};
 
 // clang-format on
 
@@ -81,9 +81,9 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 bool oled_task_user(void) {
     static const char PROGMEM title[] = "   { minimal-code }\n\n\n     ";
-    static const char PROGMEM base[] = "Layer: Base";
+    static const char PROGMEM base[]  = "Layer: Base";
     static const char PROGMEM lower[] = "Layer: Lower";
-    
+
     oled_write_P(title, false);
 
     switch (get_highest_layer(layer_state)) {
