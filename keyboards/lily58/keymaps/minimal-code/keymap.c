@@ -7,7 +7,7 @@
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR ANY PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
@@ -84,15 +84,25 @@ bool oled_task_user(void) {
     static const char PROGMEM base[]  = "Layer: Base";
     static const char PROGMEM lower[] = "Layer: Lower";
 
-    oled_write_P(title, false);
+    // Track the last layer state to only update when it changes
+    static uint8_t last_layer = 0xFF; // Initialize to invalid value to force first render
 
-    switch (get_highest_layer(layer_state)) {
-        case _BASE:
-            oled_write_ln_P(base, false);
-            break;
-        case _LOWER:
-            oled_write_ln_P(lower, false);
-            break;
+    uint8_t current_layer = get_highest_layer(layer_state);
+
+    // Only update OLED if layer has changed
+    if (current_layer != last_layer) {
+        oled_write_P(title, false);
+
+        switch (current_layer) {
+            case _BASE:
+                oled_write_ln_P(base, false);
+                break;
+            case _LOWER:
+                oled_write_ln_P(lower, false);
+                break;
+        }
+
+        last_layer = current_layer;
     }
 
     return false;
