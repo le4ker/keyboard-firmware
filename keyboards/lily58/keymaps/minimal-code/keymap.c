@@ -85,7 +85,7 @@ bool oled_task_user(void) {
     static const char PROGMEM lower[] = "Layer: Lower";
 
     // Track the last layer state to only update when it changes
-    static uint8_t last_layer = 0xFF; // Initialize to invalid value to force first render
+    static uint8_t last_layer = 0xFF;
 
     uint8_t current_layer = get_highest_layer(layer_state);
 

@@ -20,12 +20,9 @@ DEBOUNCE_TYPE = sym_eager_pk
 # Disable unused features and enable Link Time Optimization
 # to increase matrix scans per second and decrease firmware size.
 
-# Core features explicitly disabled
 MOUSEKEY_ENABLE = no
 LOCKING_SUPPORT_ENABLE = no
 LOCKING_RESYNC_ENABLE = no
-
-# Optional features explicitly disabled
 SPACE_CADET_ENABLE = no
 GRAVE_ESC_ENABLE = no
 MAGIC_ENABLE = no
