@@ -11,7 +11,7 @@ having all the keys used for software development at the first layer only.
 
 ![Lower Layer](../../../../.github/images/lower.png)
 
-## Features:
+## Features
 
 - **Two-Layer Design:**
   - **Base Layer:** A QWERTY-like layout optimized for coding, providing easy
