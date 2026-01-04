@@ -1,55 +1,53 @@
-# Lily58 Minimal Code Layout
+# QMK Firmware Fork - Lily58 Minimal Code Layout
 
-This layout aims to balance muscle memory from a typical QWERTY layout while
-having all the keys used for software development at the first layer only.
+[![Lily58](https://img.shields.io/badge/keyboard-Lily58-blue)](https://github.com/kata0510/Lily58)
+[![QMK](https://img.shields.io/badge/powered%20by-QMK-orange)](https://qmk.fm/)
 
-## Base Layer
+This is a personal fork of [QMK Firmware](https://github.com/qmk/qmk_firmware) containing my custom **minimal-code** keymap for the Lily58 split keyboard.
 
-![Base Layer](.github/images/base.png)
+## My Keymap
 
-## Lower Layer
+A performance-optimized, two-layer layout designed for software developers.
 
-![Lower Layer](.github/images/lower.png)
+| Layer | Description |
+|-------|-------------|
+| ![Base Layer](.github/images/base.png) | **Base:** QWERTY with all coding symbols accessible |
+| ![Lower Layer](.github/images/lower.png) | **Lower:** F-keys, media, VIM-style arrows |
 
-## Features
+### Highlights
 
-- **Two-Layer Design:**
-  - **Base Layer:** A QWERTY-like layout optimized for coding, providing easy
-    access to common programming symbols on the primary layer.
-  - **Lower Layer:** Accessed via a toggle key, this layer includes:
-    - Function keys (F1-F12).
-    - Media control keys (Play, Mute, Volume, Next/Previous Track).
-    - Arrow keys arranged for intuitive navigation (VIM-like).
-    - Brightness control keys.
-- **Performance Focused:**
-  - High matrix scan rate (improved from the default keymap's 1353 Hz to 1572
-    Hz).
-  - Achieved by disabling unused QMK core features (Mouse Keys, Locking Support,
-    Space Cadet, Grave Escape, Magic Commands, general Command Interface) and
-    optional features (Action Tapping, One-Shot modifiers/layers, Macros,
-    complex Functions).
-  - Link Time Optimization (LTO) enabled to reduce firmware size and improve
-    speed.
-  - Uses a minimal `printf` implementation.
-- **OLED Display Optimization:**
-  - **Smart Updates:** The OLED display only updates when the layer changes,
-    significantly improving firmware performance by avoiding unnecessary display
-    writes.
-  - **Performance Impact:** OLED writes are expensive operations that can impact
-    matrix scan rate. By only updating when needed, we maintain high performance
-    while keeping the display informative.
-  - Shows the keymap name ("{ minimal-code }") and the currently active layer.
-  - Display rotates 180 degrees on the master half for correct orientation.
-  - Features a fade-out effect and a 60-second timeout.
-- **Key Input & Reliability:**
-  - **N-Key Rollover (NKRO):** Enabled by default, ensuring all simultaneous key
-    presses are registered.
-  - **Debounce Algorithm:** Symmetric Eager Per Key (`sym_eager_pk`) with a 5ms
-    debounce time for responsive and accurate key presses.
-  - **USB Polling:** Set to 1ms for high-frequency updates and reduced input
-    latency.
-- **Split Keyboard Enhancements:**
-  - Right half configured as the master by default.
-  - Layer state is synchronized between the two halves.
-- **Security:**
-  - Keylogger functionality is explicitly disabled.
+- 🚀 **~1572 Hz** matrix scan rate (vs ~1353 Hz default)
+- ⌨️ **1ms USB polling** for minimal input latency
+- 📺 **Smart OLED** - only updates on layer change
+- 🔒 **NKRO enabled** by default
+
+👉 **[Full documentation](keyboards/lily58/keymaps/minimal-code/README.md)**
+
+## Quick Start
+
+```bash
+# Clone this repo
+git clone https://github.com/le4ker/qmk-firmware.git
+cd qmk-firmware
+
+# Set up QMK
+qmk setup
+
+# Build and flash
+cd keyboards/lily58/keymaps/minimal-code
+make flash
+```
+
+## Upstream
+
+This fork is based on [qmk/qmk_firmware](https://github.com/qmk/qmk_firmware). To sync with upstream:
+
+```bash
+git remote add upstream https://github.com/qmk/qmk_firmware.git
+git fetch upstream
+git merge upstream/master
+```
+
+## License
+
+GPL-2.0-or-later (see [LICENSE](LICENSE))
