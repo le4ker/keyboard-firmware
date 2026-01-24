@@ -1,0 +1,72 @@
+#!/bin/sh
+#
+# Git hook to validate commit messages follow Conventional Commits format
+# https://www.conventionalcommits.org/
+#
+# Format: <type>(<scope>): <subject>
+#         or
+#         <type>: <subject>
+#
+# Types: feat, fix, docs, style, refactor, perf, test, chore, ci, build, revert
+
+commit_msg_file="$1"
+commit_msg=$(cat "$commit_msg_file")
+
+# Skip merge commits
+if echo "$commit_msg" | grep -qE "^Merge "; then
+    exit 0
+fi
+
+# Skip fixup/squash commits
+if echo "$commit_msg" | grep -qE "^(fixup|squash)! "; then
+    exit 0
+fi
+
+# Conventional commit pattern
+# type(scope): subject  OR  type: subject
+# Optional BREAKING CHANGE in footer
+pattern="^(feat|fix|docs|style|refactor|perf|test|chore|ci|build|revert)(\(.+\))?(!)?: .{1,}"
+
+if ! echo "$commit_msg" | head -1 | grep -qE "$pattern"; then
+    echo ""
+    echo "❌ Invalid commit message format!"
+    echo ""
+    echo "Your message:"
+    echo "  $(head -1 "$commit_msg_file")"
+    echo ""
+    echo "Expected format:"
+    echo "  <type>(<scope>): <subject>"
+    echo "  <type>: <subject>"
+    echo ""
+    echo "Valid types:"
+    echo "  feat     - A new feature (minor version bump)"
+    echo "  fix      - A bug fix (patch version bump)"
+    echo "  docs     - Documentation only changes"
+    echo "  style    - Code style changes (formatting, etc)"
+    echo "  refactor - Code refactoring (patch version bump)"
+    echo "  perf     - Performance improvements (patch version bump)"
+    echo "  test     - Adding or updating tests"
+    echo "  chore    - Maintenance tasks"
+    echo "  ci       - CI/CD changes"
+    echo "  build    - Build system changes"
+    echo "  revert   - Reverting a previous commit"
+    echo ""
+    echo "Examples:"
+    echo "  feat(oled): add large ASCII art layer display"
+    echo "  fix: correct debounce timing"
+    echo "  docs: update README with flash instructions"
+    echo "  feat!: redesign layer system (BREAKING CHANGE)"
+    echo ""
+    exit 1
+fi
+
+# Check subject line length (max 72 chars recommended)
+subject_length=$(echo "$commit_msg" | head -1 | wc -c)
+if [ "$subject_length" -gt 73 ]; then
+    echo ""
+    echo "⚠️  Warning: Subject line is longer than 72 characters ($subject_length)"
+    echo "   Consider shortening for better readability in git log"
+    echo ""
+fi
+
+exit 0
