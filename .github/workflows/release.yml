@@ -18,10 +18,17 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup QMK
-        uses: qmk/setup-qmk@v2
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
-          qmk-version: latest
+          python-version: '3.12'
+
+      - name: Install QMK CLI
+        run: python3 -m pip install qmk
+
+      - name: Setup QMK
+        run: |
+          qmk setup -y -H .
 
       - name: Compile firmware
         run: qmk compile -kb lily58/rev1 -km minimal-code
