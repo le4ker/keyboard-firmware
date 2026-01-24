@@ -15,6 +15,12 @@
 
 #include QMK_KEYBOARD_H
 
+// Enable matrix scan rate debug output
+void keyboard_post_init_user(void) {
+    debug_enable = true;
+    debug_matrix = true;
+}
+
 enum layer_number {
     _BASE  = 0,
     _LOWER = 1,
@@ -79,26 +85,44 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return rotation;
 }
 
+// 128x32 OLED = 21 chars x 4 lines
+static const char PROGMEM base_l1[] = "###   ##   ###  ###  ";
+static const char PROGMEM base_l2[] = "#  # #  # #    #     ";
+static const char PROGMEM base_l3[] = "###  #### ###  ###   ";
+static const char PROGMEM base_l4[] = "###  #  #  ### ###   ";
+
+static const char PROGMEM lower_l1[] = " #     ##  #   #     ";
+static const char PROGMEM lower_l2[] = " #    #  # # # #     ";
+static const char PROGMEM lower_l3[] = " #    #  # # # #     ";
+static const char PROGMEM lower_l4[] = " ####  ##   # #      ";
+
 bool oled_task_user(void) {
-    static const char PROGMEM title[] = "   { minimal-code }\n\n\n     ";
-    static const char PROGMEM base[]  = "Layer: Base";
-    static const char PROGMEM lower[] = "Layer: Lower";
+    static uint8_t last_layer    = 0xFF;
+    uint8_t        current_layer = get_highest_layer(layer_state);
 
-    // Track the last layer state to only update when it changes
-    static uint8_t last_layer = 0xFF;
-
-    uint8_t current_layer = get_highest_layer(layer_state);
-
-    // Only update OLED if layer has changed
     if (current_layer != last_layer) {
-        oled_write_P(title, false);
+        oled_clear();
 
         switch (current_layer) {
             case _BASE:
-                oled_write_ln_P(base, false);
+                oled_set_cursor(0, 0);
+                oled_write_P(base_l1, false);
+                oled_set_cursor(0, 1);
+                oled_write_P(base_l2, false);
+                oled_set_cursor(0, 2);
+                oled_write_P(base_l3, false);
+                oled_set_cursor(0, 3);
+                oled_write_P(base_l4, false);
                 break;
             case _LOWER:
-                oled_write_ln_P(lower, false);
+                oled_set_cursor(0, 0);
+                oled_write_P(lower_l1, false);
+                oled_set_cursor(0, 1);
+                oled_write_P(lower_l2, false);
+                oled_set_cursor(0, 2);
+                oled_write_P(lower_l3, false);
+                oled_set_cursor(0, 3);
+                oled_write_P(lower_l4, false);
                 break;
         }
 
