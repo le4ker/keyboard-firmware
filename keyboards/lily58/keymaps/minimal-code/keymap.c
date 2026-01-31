@@ -86,15 +86,15 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 // 128x32 OLED = 21 chars x 4 lines
-static const char PROGMEM base_l1[] = "###   ##   ###  ###  ";
-static const char PROGMEM base_l2[] = "#  # #  # #    #     ";
-static const char PROGMEM base_l3[] = "###  #### ###  ###   ";
-static const char PROGMEM base_l4[] = "###  #  #  ### ###   ";
+static const char PROGMEM base_l1[] = "###   ##   ### ####";
+static const char PROGMEM base_l2[] = "#  # #  # #    #   ";
+static const char PROGMEM base_l3[] = "###  ####  ##  ### ";
+static const char PROGMEM base_l4[] = "###  #  # ###  ####";
 
-static const char PROGMEM lower_l1[] = " #     ##  #   #     ";
-static const char PROGMEM lower_l2[] = " #    #  # # # #     ";
-static const char PROGMEM lower_l3[] = " #    #  # # # #     ";
-static const char PROGMEM lower_l4[] = " ####  ##   # #      ";
+static const char PROGMEM lower_l1[] = "#     ##  #   #   ";
+static const char PROGMEM lower_l2[] = "#    #  # #   #   ";
+static const char PROGMEM lower_l3[] = "#    #  # # # #   ";
+static const char PROGMEM lower_l4[] = "####  ##  ## ##   ";
 
 bool oled_task_user(void) {
     static uint8_t last_layer    = 0xFF;
