@@ -1,3 +1,16 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [0.2.1](https://github.com/le4ker/keyboard-firmware/compare/minimal-code/v0.2.0...minimal-code/v0.2.1) (2026-02-28)
+
+### 🐛 Bug Fixes
+
+* render more clear layers in the screen ([a5a6ed6](https://github.com/le4ker/keyboard-firmware/commit/a5a6ed601340a457e3a4b80ea5c3f82cee4d5b06))
+
 ## [0.2.0](https://github.com/le4ker/keyboard-firmware/compare/minimal-code/v0.1.0...minimal-code/v0.2.0) (2026-01-24)
 
 ### Features
