@@ -1,5 +1,6 @@
-# Claude Code local settings
-.claude/
+# Claude Code local settings (track commands/, ignore everything else)
+.claude/settings.json
+.claude/settings.local.json
 
 # Junk files
 *.bak
