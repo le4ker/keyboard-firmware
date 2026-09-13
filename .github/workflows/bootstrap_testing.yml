@@ -4,12 +4,12 @@ on:
   push:
     branches: [master, develop, xap]
     paths:
-    - 'util/env-bootstrap.sh'
-    - '.github/workflows/bootstrap_testing.yml'
+      - "util/env-bootstrap.sh"
+      - ".github/workflows/bootstrap_testing.yml"
   pull_request:
     paths:
-    - 'util/env-bootstrap.sh'
-    - '.github/workflows/bootstrap_testing.yml'
+      - "util/env-bootstrap.sh"
+      - ".github/workflows/bootstrap_testing.yml"
   workflow_dispatch:
 
 permissions:
@@ -23,15 +23,15 @@ jobs:
       any_changed: ${{ steps.file_changes.outputs.any_changed }}
 
     steps:
-    - name: Get changed files
-      id: file_changes
-      if: ${{ github.event_name == 'pull_request' }}
-      uses: tj-actions/changed-files@v47
-      with:
-        use_rest_api: true
-        files: |
-          util/env-bootstrap.sh
-          .github/workflows/bootstrap_testing.yml
+      - name: Get changed files
+        id: file_changes
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: tj-actions/changed-files@v47
+        with:
+          use_rest_api: true
+          files: |
+            util/env-bootstrap.sh
+            .github/workflows/bootstrap_testing.yml
 
   bootstrap-test-linux:
     name: Bootstrap (Linux)
@@ -83,32 +83,34 @@ jobs:
       - name: Install base dependencies
         run: |
           # Attempt to run the package installation up to 10 times to mitigate transient network issues
+          ok=''
           for n in $(seq 1 10); do
             {
               echo "Attempt #$n of 10 to install base dependencies:"
               case "${{ matrix.distribution }}" in
                 *ubuntu*|*debian*)
-                  apt-get update
-                  apt-get install -y sudo git passwd
+                  apt-get update &&
+                    apt-get install -y sudo git passwd
                   ;;
                 *fedora*|*rockylinux*|*almalinux*)
                   dnf install -y sudo git passwd findutils  # findutils=xargs
                   ;;
                 *suse*)
-                  zypper --non-interactive refresh
-                  zypper --non-interactive install sudo git shadow findutils tar  # findutils=xargs
+                  zypper --non-interactive refresh &&
+                    zypper --non-interactive install sudo git shadow findutils tar  # findutils=xargs
                   ;;
                 *gentoo*)
-                  emerge-webrsync
-                  emerge --noreplace --ask=n sudo dev-vcs/git shadow findutils  # findutils=xargs
+                  { emaint sync -a || emerge --sync --quiet || emerge-webrsync -q ; } &&
+                    emerge --noreplace --ask=n sudo dev-vcs/git shadow findutils  # findutils=xargs
                   ;;
                 *archlinux*|*cachyos*|*manjaro*)
-                  pacman -Syu --noconfirm
-                  pacman -S --noconfirm sudo git
+                  pacman -Syu --noconfirm &&
+                    pacman -S --noconfirm sudo git
                   ;;
               esac
-            } && break || sleep 10
+            } && { ok=1; break ; } || sleep 10
           done
+          [ -n "$ok" ] || exit 1
 
           # Fix PAM configuration for sudo in containers
           # Fix /etc/shadow permissions - common issue in container environments
@@ -134,11 +136,11 @@ jobs:
           # Create a test user for the bootstrap script
           useradd -m -s /bin/bash -U testuser
           echo 'testuser:testpassword' | chpasswd || true
-          
+
           # Configure passwordless sudo
           echo "root ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers  # some distros complain about root not being in sudoers
           echo "testuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
-          
+
           # Test sudo functionality
           sudo -u testuser whoami || echo "Sudo test failed, but continuing..."
 
@@ -177,7 +179,7 @@ jobs:
             cd /home/testuser/qmk_firmware
             qmk mass-compile -j $(nproc) -e DUMP_CI_METADATA=yes -f 'keyboard_name==*onekey*' -km reset -p || touch .failed  # Compile a bunch of different platforms
           "
-          
+
           cd /home/testuser/qmk_firmware
           ./util/ci/generate_failure_markdown.sh > $GITHUB_STEP_SUMMARY || true
           [ ! -e .failed ] || exit 1
@@ -192,14 +194,25 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - macos-14        # Apple Silicon ARM64
-          - macos-15        # Apple Silicon ARM64
-          - macos-15-intel  # Intel x64
-          - macos-26        # Apple Silicon ARM64
+          - macos-14 # Apple Silicon ARM64
+          - macos-15 # Apple Silicon ARM64
+          - macos-15-intel # Intel x64
+          - macos-26 # Apple Silicon ARM64
+          - macos-26-intel # Intel x64
 
     runs-on: ${{ matrix.os }}
 
     steps:
+      - name: Install base dependencies
+        run: |
+          # Attempt to run the brew update up to 10 times to mitigate transient issues
+          for n in $(seq 1 10); do
+            brew update && exit 0
+            brew update-reset || true
+            sleep 10
+          done
+          exit 1
+
       - name: Checkout repository
         uses: actions/checkout@v7
         with:
@@ -226,7 +239,7 @@ jobs:
           export PATH="$HOME/.local/bin:$PATH"
           qmk setup -y -H .  # setup implies doctor, no need to run it separately
           qmk mass-compile -j $(sysctl -n hw.ncpu) -e DUMP_CI_METADATA=yes -f 'keyboard_name==*onekey*' -km reset || touch .failed  # Compile a bunch of different platforms
-          
+
           ./util/ci/generate_failure_markdown.sh > $GITHUB_STEP_SUMMARY || true
           [ ! -e .failed ] || exit 1
 
@@ -283,7 +296,6 @@ jobs:
           export PATH="/opt/uv/tools/bin:$PATH"
           qmk setup -y -H .  # setup implies doctor, no need to run it separately
           qmk mass-compile -j $(nproc) -e DUMP_CI_METADATA=yes -f 'keyboard_name==*onekey*' -km reset || touch .failed  # Compile a bunch of different platforms
-          
+
           ./util/ci/generate_failure_markdown.sh > $GITHUB_STEP_SUMMARY || true
           [ ! -e .failed ] || exit 1
-
