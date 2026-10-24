@@ -17,12 +17,12 @@ A performance-optimized, two-layer layout designed for software developers.
 
 ### Highlights
 
-- 🚀 **~1569 Hz** matrix scan rate (vs ~1353 Hz default)
-- ⌨️ **1ms USB polling** for minimal input latency
-- 📺 **Smart OLED** - only updates on layer change
-- 🔒 **NKRO enabled** by default
+- **~1569 Hz** matrix scan rate (vs ~1353 Hz default)
+- **1ms USB polling** for minimal input latency
+- **Smart OLED** - only updates on layer change
+- **NKRO enabled** by default
 
-👉 **[Full documentation](keyboards/lily58/keymaps/minimal-code/README.md)**
+**[Full documentation](keyboards/lily58/keymaps/minimal-code/README.md)**
 
 ## Quick Start
 

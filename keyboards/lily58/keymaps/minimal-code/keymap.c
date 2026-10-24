@@ -15,12 +15,6 @@
 
 #include QMK_KEYBOARD_H
 
-// Enable matrix scan rate debug output
-void keyboard_post_init_user(void) {
-    debug_enable = true;
-    debug_matrix = true;
-}
-
 enum layer_number {
     _BASE  = 0,
     _LOWER = 1,
