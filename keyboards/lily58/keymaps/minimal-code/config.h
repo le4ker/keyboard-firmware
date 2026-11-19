@@ -19,7 +19,7 @@
 #define SPLIT_LAYER_STATE_ENABLE // Share layer state with right half
 #define OLED_FADE_OUT
 #define OLED_FADE_OUT_INTERVAL 15 // Slowest fade out
-#define OLED_TIMEOUT 60000        // OLED timeout (ms)
+#define OLED_TIMEOUT 30000        // OLED timeout (ms)
 #define DEBOUNCE 5                // Debounce time (ms)
 #define NKRO_DEFAULT_ON true      // N-Key Rollover on by default
 

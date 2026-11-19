@@ -178,7 +178,7 @@ Edit `config.h`:
 Edit `config.h`:
 
 ```c
-#define OLED_TIMEOUT 60000  // Value in milliseconds
+#define OLED_TIMEOUT 30000  // Value in milliseconds
 ```
 
 ## License
